@@ -1,0 +1,57 @@
+/*
+*= require_tree .
+*= require_self
+*/
+@import "bootstrap";
+
+h4 {
+  &.past-title {
+    color: green;
+  }
+  &.current-title {
+    color: blue;
+  }
+  &.future-title {
+    color: rgb(107, 0, 139);
+  }
+}
+
+.alert {
+  color: red;
+  text-align: center;
+}
+.notice{
+  color: green;
+  text-align: center;
+}
+
+.field_with_errors {
+  color: red;
+  margin: 0 auto;
+  .form-control {
+    border-color: red;
+  }
+}
+
+.past-container {
+  border: 1px solid green;
+}
+
+.current-container {
+  border: 1px solid blue;
+}
+
+.future-container {
+  border: 1px solid darkblue;
+}
+
+.form-error-messages {
+  color: red;
+  ul {
+    list-style-type: none;
+  }
+}
+
+.col-form-label{
+  max-width: 100%;
+}

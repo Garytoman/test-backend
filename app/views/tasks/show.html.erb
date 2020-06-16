@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-6 mx-auto text-center">
+    <div class="row">
+      <div class="col-12">
+        <h3><%= @task.title %></h3>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-12">
+        <div class"row">
+          <div class="col-12">
+            <%= "#{I18n.t('activerecord.attributes.task.task_start')}: #{@task.task_start.strftime('%d/%m/%Y %H:%M')}" %>
+          </div>
+        </div>
+        <div class"row">
+          <div class="col-12">
+            <%= "#{I18n.t('activerecord.attributes.task.task_finish')}: #{@task.task_finish.strftime('%d/%m/%Y %H:%M')}" %>
+          </div>
+        </div>
+        <div class"row">
+          <div class="col-12">
+            <%= "#{I18n.t('activerecord.attributes.task.email')}: #{@task.try(:email)}" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-4 mx-auto">
+        <%= link_to I18n.t('forms.edit'), edit_task_path(@task), class: 'btn btn-success' %>
+        <%= link_to I18n.t('forms.return'), root_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+</div>
+

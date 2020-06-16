@@ -1,0 +1,43 @@
+es:
+  activerecord:
+    models:
+      task:
+        one: Tarea
+        other: Tareas
+    attributes:
+      task:
+        title: Título
+        task_start: Inicio tarea
+        task_finish: Fin tarea
+        email: E-mail
+    errors:
+      messages:
+        record_invalid: Registro no válido
+      models:
+        task:
+          attributes:
+            email:
+              invalid: El formato del email no es correcto
+      overlap_error: Esta tarea se solapa con otra existente
+  forms:
+    create: Crear tarea
+    edit: Editar
+    return: Volver
+    update: Actualizar tarea
+    delete: Eliminar
+    sure: ¿Está seguro?
+    
+  tasks:
+    create_error: No se ha podido crear la tarea
+    current_tasks: Tareas actuales
+    destroyed: Tarea eliminada satisfactoriamente
+    future_tasks: Tareas futuras
+    index: Tareas
+    new: Nueva tarea
+    past_tasks: Tareas pasadas
+    task_created: Tarea creada satisfactoriamente
+    task_updated: Tarea actualizada satisfactoriamente
+    title: Título
+    unknow_task: No se encuentra la tarea. Imposible eliminar
+    unregistered: No registrado
+
