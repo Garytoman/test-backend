@@ -29,11 +29,14 @@ es:
     
   tasks:
     create_error: No se ha podido crear la tarea
+    current_task: Tarea en curso
     current_tasks: Tareas actuales
     destroyed: Tarea eliminada satisfactoriamente
+    future_task: Tarea futura
     future_tasks: Tareas futuras
     index: Tareas
     new: Nueva tarea
+    past_task: Tarea pasada
     past_tasks: Tareas pasadas
     task_created: Tarea creada satisfactoriamente
     task_updated: Tarea actualizada satisfactoriamente

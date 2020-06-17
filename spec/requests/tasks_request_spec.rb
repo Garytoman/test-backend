@@ -23,7 +23,7 @@ RSpec.describe 'Tasks', type: :request do
     it 'renders task#index' do
       get tasks_path
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe 'Tasks', type: :request do
       @task = create(:task)
       get task_path(@task)
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
       expect(response).to render_template(:show)
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe 'Tasks', type: :request do
     it 'renders task#new form' do
       get new_task_path
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
       expect(response).to render_template(:new)
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :request do
       @task = create(:task)
       get edit_task_path(@task)
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
       expect(response).to render_template(:edit)
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe 'Tasks', type: :request do
       it 'redirect to tasks#show & show notice' do
         post tasks_path, params: valid_params
 
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(task_path(Task.first))
         expect(flash[:notice]).to match(I18n.t('tasks.task_created'))
       end
@@ -80,7 +80,7 @@ RSpec.describe 'Tasks', type: :request do
       it 'render tasks#new & show alert' do
         post tasks_path, params: invalid_params
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:success)
         expect(response).to render_template(:new)
         expect(flash[:alert]).to match(I18n.t('tasks.create_error'))
       end
@@ -101,7 +101,7 @@ RSpec.describe 'Tasks', type: :request do
 
         patch task_path(task.id), params: valid_params
 
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(task_path(task.id))
         expect(flash[:notice]).to match(I18n.t('tasks.task_updated'))
         task.reload
@@ -113,7 +113,7 @@ RSpec.describe 'Tasks', type: :request do
       it 'render tasks#edit & show alert' do
         patch task_path(task.id), params: invalid_params
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:success)
         expect(response).to render_template(:edit)
         expect(flash[:alert]).to match(I18n.t('tasks.update_error'))
       end
@@ -129,7 +129,7 @@ RSpec.describe 'Tasks', type: :request do
       it 'redirect to tasks#index & show alert' do
         delete task_path(id: 999999999)
 
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(tasks_path) 
         expect(flash[:alert]).to eq(I18n.t('tasks.unknow_task'))
       end
@@ -141,7 +141,7 @@ RSpec.describe 'Tasks', type: :request do
       it 'delete task, redirect to tasks#index & show notice' do
         expect(Task.all).to include(task)
         expect{ delete task_path(id: task.id) }.to change{ Task.count }.by(-1)
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(tasks_path) 
         expect(flash[:notice]).to eq(I18n.t('tasks.destroyed'))
       end

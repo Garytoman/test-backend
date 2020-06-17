@@ -72,7 +72,7 @@ RSpec.describe Task, type: :model do
 
       context 'is not valid' do
         it 'if new task starts before existing task & finish during existing task' do
-          new_task = build(:task, task_start: @start - 1.hour, task_finish: @start + 3.hours) 
+          new_task = build(:task, task_start: @start - 1.hour, task_finish: @start + 2.minutes) 
           new_task.valid?
 
           expect(new_task.errors[:overlap_error]).to include(I18n.t('activerecord.errors.overlap_error'))
@@ -80,7 +80,7 @@ RSpec.describe Task, type: :model do
         end
 
         it 'if new task starts during existing task & finish after existing task' do
-          new_task = build(:task, task_start: @start + 1.hour, task_finish: @start + 6.hours)
+          new_task = build(:task, task_start: @start - 2.minutes, task_finish: @start + 5.minutes)
           new_task.valid?
 
           expect(new_task.errors[:overlap_error]).to include(I18n.t('activerecord.errors.overlap_error'))
@@ -88,7 +88,7 @@ RSpec.describe Task, type: :model do
         end
 
         it 'if new task starts before existing task & finish after existing task' do
-          new_task = build(:task, task_start: @start - 1.hour, task_finish: @start + 6.hours)
+          new_task = build(:task, task_start: @start - 1.hour, task_finish: @start + 6.minutes)
           new_task.valid?
 
           expect(new_task.errors[:overlap_error]).to include(I18n.t('activerecord.errors.overlap_error'))
