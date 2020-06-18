@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= I18n.t('mailers.task_mailer.subject') %></h1>
+    <p>
+      <%= "#{I18n.t('mailers.task_mailer.content')} #{@task.task_start.strftime('%d/%m/%Y %H:%M')}h" %>.<br>
+    </p>
+    <p>
+      <%= "#{I18n.t('mailers.task_mailer.to_task')}" %><%= link_to(@task.title, @link) %>.
+    </p>
+    <p><%= I18n.t('mailers.task_mailer.greetings') %></p>
+  </body>
+</html>

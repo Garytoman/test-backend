@@ -1,0 +1,53 @@
+<div class="container-flex">
+  <div class="row">
+    <div class="col-6 mx-auto text-center">
+      <div class="row d-flex">
+        <div class="mr-auto">
+          <h3><%= I18n.t('tasks.index') %></h3>
+        </div>
+        <div class="ml-auto">
+          <%= link_to I18n.t('tasks.new'), new_task_path, class: 'btn btn-primary new-button' %>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-4 past-container">
+          <div class="row">
+            <div class="col-12">
+              <h4 class="past-title"><%= I18n.t('tasks.past_tasks') %></h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render partial: 'tasks', locals: { tasks: @past_tasks } %>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 current-container mx-1">
+          <div class="row">
+            <div class="col-12">
+              <h4 class="current-title"><%= I18n.t('tasks.current_tasks') %></h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render partial: 'tasks', locals: { tasks: @present_tasks } %>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 future-container">
+          <div class="row">
+            <div class="col-12">
+              <h4 class="future-title"><%= I18n.t('tasks.future_tasks') %></h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render partial: 'tasks', locals: { tasks: @future_tasks } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

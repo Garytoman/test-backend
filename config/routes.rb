@@ -1,3 +1,16 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'tasks#index'
+  resources :tasks
+
+  namespace :api do
+    namespace :v1, defaults: { format: :json } do
+      resources :tasks, only: [] do
+        collection do
+          get 'all'
+        end
+      end
+    end
+  end
 end

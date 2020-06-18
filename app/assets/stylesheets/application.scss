@@ -1,0 +1,98 @@
+/*
+*= require_tree .
+*= require_self
+*/
+@import "bootstrap";
+
+h4 {
+  color: gray;
+}
+
+.alert {
+  color: red;
+  text-align: center;
+}
+
+.notice{
+  color: green;
+  text-align: center;
+}
+
+.new-button {
+  margin-right: 30px;
+}
+
+.past-container, .current-container, .future-container {
+  max-width: 32%;
+  .task-card {
+    box-shadow: 1px 1px 10px grey;
+    margin-bottom: 20px;;
+    min-height: 305px;
+    position: relative;
+    .card-head {
+      width: 100%;
+      margin: 0 auto;
+      background-color: lightgray;
+      padding: 0.75rem 1.25rem;
+    }
+    .action-btns {
+      position: absolute;
+      bottom: 10px;
+      left: 25%;
+    }
+  }
+}
+
+.current-container {
+  border-right: 2px solid gray;
+  border-left: 2px solid gray;
+}
+
+.show-container {
+  box-shadow: 1px 1px 10px grey;
+}
+
+.task-show, .task-edit {
+  box-shadow: 1px 1px 10px grey;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  min-height: 250px;
+  position: relative;
+  .task-show-head, .task-edit-head {
+    width: 100%;
+    margin: 0 auto;
+    background-color: lightgray;
+    padding: 0.75rem 1.25rem;
+  }
+  .task-edit-head {
+    margin-bottom: 10px;
+  }
+  .action-btns {
+    position: absolute;
+    bottom: 15px;
+    left: 3%;
+    width: 100%;
+  }
+}
+
+form {
+  .form-error-messages {
+    color: red;
+    ul {
+      list-style-type: none;
+    }
+  }
+  .col-form-label{
+    max-width: 100%;
+  }
+  .field_with_errors {
+    color: red;
+    margin: 0 auto;
+    .form-control {
+      border-color: red;
+    }
+  }
+  .frm-action-btns {
+    margin-bottom: 10px;
+  }
+}

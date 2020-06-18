@@ -1,0 +1,28 @@
+default: &default
+  encoding: utf8
+  host: localhost
+  adapter: mysql2
+
+development:
+  <<: *default
+  database: 'timp_dev'
+  username: 'root'
+  password: 'root'
+
+staging:
+  <<: *default
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
+test:
+  <<: *default
+  database: 'timp_test'
+  username: 'root'
+  password: 'root'
+
+production:
+  <<: *default
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
