@@ -1,0 +1,8 @@
+<%= I18n.t('mailers.task_mailer.subject') %>
+============================================
+
+<%= "#{I18n.t('mailers.task_mailer.content')} #{@task.task_start.strftime('%d/%m/%Y %H:%M')}h." %>
+
+<%= "#{I18n.t('mailers.task_mailer.to_task')}" %><%= link_to(@task.title, @link) %>
+
+<%= I18n.t('mailers.task_mailer.greetings') %>

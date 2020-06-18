@@ -18,6 +18,13 @@ es:
           attributes:
             email:
               invalid: El formato del email no es correcto
+            task_finish: 
+              blank: La fecha de fin no puede estar en blanco
+            task_start: 
+              blank: La fecha de inicio no puede estar en blanco
+            title: 
+              blank: El título no puede estar en blanco
+      invalid_date_range: Fechas incorrectas. Falta alguna fecha por definir o la fecha de finalización es anterior o igual a la de inicio
       overlap_error: Esta tarea se solapa con otra existente
   forms:
     create: Crear tarea
@@ -26,11 +33,16 @@ es:
     update: Actualizar tarea
     delete: Eliminar
     sure: ¿Está seguro?
-    
+  mailers:
+    task_mailer:
+      subject: Aviso de inicio de tarea
+      content: "Tiene una tarea programada para la siguiente fecha: " 
+      to_task: "Puede ver la tarea siguiendo este enlace: "
+      greetings: "Le deseamos que pase un buen día."
   tasks:
     create_error: No se ha podido crear la tarea
     current_task: Tarea en curso
-    current_tasks: Tareas actuales
+    current_tasks: Tarea actual
     destroyed: Tarea eliminada satisfactoriamente
     future_task: Tarea futura
     future_tasks: Tareas futuras
@@ -43,4 +55,5 @@ es:
     title: Título
     unknow_task: No se encuentra la tarea. Imposible eliminar
     unregistered: No registrado
+    update_error: Error al intentar actualizar la tarea
 

@@ -2,27 +2,32 @@
   <div class="row">
     <div class="col-12">
       <div class="task-card">
-        <div class="row card-header">
+        <div class="row card-head">
           <div class="col-12">
             <%= link_to task.title, task_path(task) %>
           </div>
         </div>
         <div class="row card-body">
           <div class="col-12">
-            <%="#{I18n.t('activerecord.attributes.task.task_start')}: #{task.task_start.strftime("%d/%m/%Y %H:%M")}" %>
+            <b><%="#{I18n.t('activerecord.attributes.task.task_start')}:" %> </b>
             <br>
-            <%="#{I18n.t('activerecord.attributes.task.task_finish')}: #{task.task_finish.strftime("%d/%m/%Y %H:%M")}" %>
+            <%="#{task.task_start.strftime("%d/%m/%Y %H:%M")}" %>
             <br>
-            <%="#{I18n.t('activerecord.attributes.task.email')}: #{task.email.present? ? task.email : I18n.t('tasks.unregistered')}" %>
+            <b><%="#{I18n.t('activerecord.attributes.task.task_finish')}:" %> </b>
+            <br>
+            <%="#{task.task_finish.strftime("%d/%m/%Y %H:%M")}" %>
+            <br>
+            <b><%="#{I18n.t('activerecord.attributes.task.email')}:" %></b>
+            <br> 
+            <%="#{task.email.present? ? task.email : I18n.t('tasks.unregistered')}" %>
           </div>
         </div>
-        <div class="row">
+        <div class="row action-btns">
           <div class="col-12 mx-auto">
             <%= link_to I18n.t('forms.edit'), edit_task_path(task), class: 'btn btn-success btn-sm' %>
             <%= link_to I18n.t('forms.delete'), task_path(task), method: :delete, data: { confirm: I18n.t('forms.sure') }, class: 'btn btn-danger btn-sm' %>
           </div>
         </div>
-        <hr>
       </div>
     </div>
   </div>

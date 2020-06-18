@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-12"> 
+        <div class="col-12 frm-action-btns"> 
           <%= f.submit action_name == 'new' || action_name == 'create' ? I18n.t('forms.create') : I18n.t('forms.update'), class: 'btn btn-success' %>
           <%= link_to I18n.t('forms.return'), root_path, class: 'btn btn-primary' %>
         </div>

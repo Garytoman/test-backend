@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveJob::TestHelper
 
 RSpec.describe Task, type: :model do
   subject { build(:task) }
@@ -42,12 +43,12 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'Custom validations' do
-    before(:each) do
-      @start = DateTime.now.utc.change(sec: 0)
-      create(:task, task_start: @start)
-    end
-
     describe 'check_overlapping_tasks validation' do
+      before(:each) do
+        @start = DateTime.now.utc.change(sec: 0)
+        create(:task, task_start: @start)
+      end
+
       context 'is valid' do
         it 'if new task starts before existing task & finish before existing task' do
           new_task = build(:task, task_start: @start - 3.hour, task_finish: @start - 1.hour)
@@ -97,6 +98,58 @@ RSpec.describe Task, type: :model do
 
         it 'and therefore on create raise ActiveRecord::RecordInvalid error' do
           expect { create(:task, task_start: @start - 1.hour, task_finish: @start + 3.hours) }.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+    end
+
+    describe 'check_date_range validation' do
+      before(:each) do
+        @task = build(:future_task)
+      end
+
+      context 'is valid' do
+        it 'if task starts before task finish & all dates are defined' do
+          @task.task_start = DateTime.now - 10.minutes
+          @task.task_finish = DateTime.now + 10.minutes
+          @task.valid?
+
+          expect(@task).to be_valid
+        end
+      end
+
+      context 'is not valid' do
+        it 'if task starts after task finish' do
+          @task.task_start = DateTime.now + 10.minutes
+          @task.task_finish = DateTime.now - 10.minutes
+          @task.valid?
+
+          expect(@task.errors[:invalid_date_range]).to include(I18n.t('activerecord.errors.invalid_date_range'))
+          expect(@task).to_not be_valid
+        end
+
+        it 'if the task starts at the same time it ends' do
+          @task.task_start = DateTime.now
+          @task.task_finish = DateTime.now
+          @task.valid?
+
+          expect(@task.errors[:invalid_date_range]).to include(I18n.t('activerecord.errors.invalid_date_range'))
+          expect(@task).to_not be_valid
+        end
+
+        it 'if task_start is nil' do
+          @task.task_start = nil
+          @task.valid?
+
+          expect(@task.errors[:invalid_date_range]).to include(I18n.t('activerecord.errors.invalid_date_range'))
+          expect(@task).to_not be_valid
+        end
+
+        it 'if task_finish is nil' do
+          @task.task_finish = nil
+          @task.valid?
+
+          expect(@task.errors[:invalid_date_range]).to include(I18n.t('activerecord.errors.invalid_date_range'))
+          expect(@task).to_not be_valid
         end
       end
     end

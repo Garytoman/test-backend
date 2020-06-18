@@ -17,10 +17,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new task_params
-    
 
     respond_to do |format|
       if @task.save
+        TaskMailer.with(task: @task).task_start_email.deliver_later(wait_until: @task.task_start) if @task.email.present?
+        
         format.html { redirect_to task_path(@task), notice: I18n.t('tasks.task_created') }
       else
         format.html { render :new, alert: I18n.t('tasks.create_error') }

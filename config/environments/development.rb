@@ -36,8 +36,18 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.default_url_options = { :host => "localhost:3000" }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
+  # Time zones
+  config.time_zone = "Europe/Madrid"
+  config.active_record.default_timezone = :local
+  config.active_support.initialize_time_zone
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

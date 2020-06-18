@@ -23,4 +23,3 @@ class Api::V1::TasksController < ApplicationController
     render json: resp, status: 200
   end
 end
-

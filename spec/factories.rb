@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :task do
     title         { Faker::Lorem.word } 
-    task_start    { DateTime.now.utc - 1.minute}
-    task_finish   { DateTime.now.utc + 1.minute }
+    task_start    { DateTime.now.utc - 3.minute}
+    task_finish   { DateTime.now.utc + 3.minute }
     email         { Faker::Internet.email }
 
     factory :past_task do
