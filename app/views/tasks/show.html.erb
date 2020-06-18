@@ -23,7 +23,7 @@
         <div class"row">
           <div class="col-12">
             <b><%= "#{I18n.t('activerecord.attributes.task.email')}:" %></b> 
-            <%="#{@task.try(:email)}" %>
+            <%="#{@task.email.present? ? @task.email : I18n.t('tasks.unregistered')}" %>
           </div>
         </div>
       </div>

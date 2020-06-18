@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskMailer < ApplicationMailer
   def task_start_email
     # @email = params[:email]

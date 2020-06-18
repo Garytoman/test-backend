@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update]
+  before_action :set_task, only: %i[show edit update]
 
   def index
     @past_tasks = Task.in_the_past
@@ -20,8 +22,10 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        TaskMailer.with(task: @task).task_start_email.deliver_later(wait_until: @task.task_start) if @task.email.present?
-        
+        if @task.email.present?
+          TaskMailer.with(task: @task).task_start_email.deliver_later(wait_until: @task.task_start)
+        end
+
         format.html { redirect_to task_path(@task), notice: I18n.t('tasks.task_created') }
       else
         format.html { render :new, alert: I18n.t('tasks.create_error') }
@@ -39,21 +43,18 @@ class TasksController < ApplicationController
     end
   end
 
-  def destroy  
-    begin
-      @task = Task.find(params[:id])
+  def destroy
+    @task = Task.find(params[:id])
 
-      respond_to do |format|
-        if @task.destroy
-          format.html { redirect_to tasks_path, notice: I18n.t('tasks.destroyed') }
-        end
-      end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to tasks_path, alert: I18n.t('tasks.unknow_task')
+    respond_to do |format|
+      format.html { redirect_to tasks_path, notice: I18n.t('tasks.destroyed') } if @task.destroy
     end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to tasks_path, alert: I18n.t('tasks.unknow_task')
   end
 
   private
+
   def task_params
     params.require(:task).permit(:title, :email, :task_start, :task_finish)
   end

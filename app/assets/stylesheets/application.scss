@@ -12,17 +12,14 @@ h4 {
   color: red;
   text-align: center;
 }
+
 .notice{
   color: green;
   text-align: center;
 }
 
-.field_with_errors {
-  color: red;
-  margin: 0 auto;
-  .form-control {
-    border-color: red;
-  }
+.new-button {
+  margin-right: 30px;
 }
 
 .past-container, .current-container, .future-container {
@@ -76,22 +73,26 @@ h4 {
     left: 3%;
     width: 100%;
   }
+}
+
+form {
+  .form-error-messages {
+    color: red;
+    ul {
+      list-style-type: none;
+    }
+  }
+  .col-form-label{
+    max-width: 100%;
+  }
+  .field_with_errors {
+    color: red;
+    margin: 0 auto;
+    .form-control {
+      border-color: red;
+    }
+  }
   .frm-action-btns {
     margin-bottom: 10px;
   }
-}
-
-.form-error-messages {
-  color: red;
-  ul {
-    list-style-type: none;
-  }
-}
-
-.col-form-label{
-  max-width: 100%;
-}
-
-.new-button {
-  margin-right: 30px;
 }

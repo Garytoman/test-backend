@@ -1,30 +1,34 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   # Callbacks
   before_save :normalize_time
 
   # Validations
-  validates :title, :task_start, :task_finish, presence: true 
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}, unless: Proc.new { |tl| tl.email.blank? }
+  validates :title, :task_start, :task_finish, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, unless: proc { |tl| tl.email.blank? }
   validate :check_overlapping_tasks
-  validate :check_date_range 
+  validate :check_date_range
 
   # Scopes
-  scope :in_the_past,     -> { where("task_finish < ?", DateTime.now).order(:task_start) }
-  scope :in_the_present,  -> { where("task_start <= ? AND task_finish >= ?", DateTime.now, DateTime.now).order(:task_start) }
-  scope :in_the_future,   -> { where("task_start > ?", DateTime.now).order(:task_start) }
+  scope :in_the_past,     -> { where('task_finish < ?', DateTime.now).order(:task_start) }
+  scope :in_the_present,  -> { where('task_start <= ? AND task_finish >= ?', DateTime.now, DateTime.now).order(:task_start) }
+  scope :in_the_future,   -> { where('task_start > ?', DateTime.now).order(:task_start) }
 
   # Custom validations
   def check_overlapping_tasks
-    tasks_overlapped = Task.where('task_start < ? AND task_finish > ?', self.task_finish.try(:utc), self.task_start.try(:utc)).where.not(id: self.id).limit(1)
+    tasks_overlapped = Task.where('task_start < ? AND task_finish > ?', task_finish, task_start).where.not(id: id).limit(1)
 
     errors.add(:overlap_error, I18n.t('activerecord.errors.overlap_error')) if tasks_overlapped.present?
   end
 
   def check_date_range
-    errors.add(:invalid_date_range, I18n.t('activerecord.errors.invalid_date_range')) if task_start.nil? || task_finish.nil? || task_finish <= task_start
+    return unless task_start.nil? || task_finish.nil? || task_finish <= task_start
+      
+    errors.add(:invalid_date_range, I18n.t('activerecord.errors.invalid_date_range'))
   end
 
-  #JBuilder
+  # JBuilder
   def to_builder
     Jbuilder.new do |task|
       task.title title
@@ -36,6 +40,7 @@ class Task < ApplicationRecord
   end
 
   private
+
   def time_status
     if Task.in_the_past.include? self
       I18n.t('tasks.past_task')
@@ -47,7 +52,7 @@ class Task < ApplicationRecord
   end
 
   def normalize_time
-    self.task_start = self.task_start.to_datetime.change(sec: 0)
-    self.task_finish = self.task_finish.to_datetime.change(sec: 0)
-  end  
+    self.task_start = task_start.to_datetime.change(sec: 0)
+    self.task_finish = task_finish.to_datetime.change(sec: 0)
+  end
 end

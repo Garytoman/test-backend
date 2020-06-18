@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include ActiveJob::TestHelper
 
@@ -15,7 +17,7 @@ RSpec.describe Task, type: :model do
         expect(subject).to be_valid
       end
     end
-  
+
     context 'is not valid' do
       it 'without a title attribute' do
         subject.title = nil
@@ -45,7 +47,7 @@ RSpec.describe Task, type: :model do
   describe 'Custom validations' do
     describe 'check_overlapping_tasks validation' do
       before(:each) do
-        @start = DateTime.now.utc.change(sec: 0)
+        @start = DateTime.now.change(sec: 0)
         create(:task, task_start: @start)
       end
 
@@ -73,7 +75,7 @@ RSpec.describe Task, type: :model do
 
       context 'is not valid' do
         it 'if new task starts before existing task & finish during existing task' do
-          new_task = build(:task, task_start: @start - 1.hour, task_finish: @start + 2.minutes) 
+          new_task = build(:task, task_start: @start - 1.hour, task_finish: @start + 2.minutes)
           new_task.valid?
 
           expect(new_task.errors[:overlap_error]).to include(I18n.t('activerecord.errors.overlap_error'))
@@ -163,33 +165,33 @@ RSpec.describe Task, type: :model do
     end
 
     describe '#in_the_past' do
-      it "returns a past tasks" do
+      it 'returns a past tasks' do
         expect(Task.in_the_past.count).to eq(1)
       end
-    
-      it "does not return present or future tasks" do
+
+      it 'does not return present or future tasks' do
         expect(Task.in_the_past).to_not include(@present_task)
         expect(Task.in_the_past).to_not include(@future_task)
       end
     end
 
     describe '#in_the_present' do
-      it "returns a present task" do
+      it 'returns a present task' do
         expect(Task.in_the_present.count).to eq(1)
       end
-    
-      it "does not return past or future tasks" do
+
+      it 'does not return past or future tasks' do
         expect(Task.in_the_present).to_not include(@past_task)
         expect(Task.in_the_present).to_not include(@future_task)
       end
     end
 
     describe '#in_the_future' do
-      it "returns a future task" do
+      it 'returns a future task' do
         expect(Task.in_the_future.count).to eq(1)
       end
-    
-      it "does not return past or present tasks" do
+
+      it 'does not return past or present tasks' do
         expect(Task.in_the_future).to_not include(@past_task)
         expect(Task.in_the_future).to_not include(@present_task)
       end

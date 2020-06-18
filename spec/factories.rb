@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :task do
-    title         { Faker::Lorem.word } 
-    task_start    { DateTime.now.utc - 3.minute}
+    title         { Faker::Lorem.word }
+    task_start    { DateTime.now.utc - 3.minute }
     task_finish   { DateTime.now.utc + 3.minute }
     email         { Faker::Internet.email }
 
